@@ -102,7 +102,7 @@ try {
         console.log(`[!] Sunucu çalışıyor, port: ${port}`);
         console.log(`[!] Ağ arayüzü bulunamadı, 'ipconfig' komutu ile IP adresinizi kontrol edebilirsiniz.`);
     }
-    console.log(`\n[+] GitHub: https://github.com/pauloodev/phishing-instagram`);
+    console.log(`\n[+] GitHub: https://github.com/captainmgc/phishing-instagram`);
 } catch (error) {
     console.log(`[!] Sunucu çalışıyor, port: ${port}`);
     console.log(`[!] Hata: ${error.message}`);
